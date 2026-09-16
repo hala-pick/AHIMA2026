@@ -1,0 +1,438 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  padding: calc(var(--header-h) + 56px) 0 0;
+  background: linear-gradient(155deg, #d10a2e 0%, var(--primary) 32%, var(--primary-dark) 66%, #2c0009 100%);
+  color: #fff;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.hero__pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 90%);
+  pointer-events: none;
+}
+
+.hero__glow {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  z-index: 0;
+  height: 480px;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 212, 212, 0.35), transparent 60%),
+    radial-gradient(circle at 80% 0%, rgba(255, 102, 102, 0.4), transparent 55%);
+  mix-blend-mode: screen;
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.hero__orbs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: transform 0.3s ease-out;
+}
+
+.hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(65px);
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  animation: hero-orb-float 16s ease-in-out infinite;
+}
+
+.hero__orb--1 {
+  width: 260px;
+  height: 260px;
+  left: -60px;
+  top: 60px;
+  background: radial-gradient(circle, rgba(255, 212, 212, 0.85), transparent 70%);
+  animation-delay: 0s;
+}
+
+.hero__orb--2 {
+  width: 320px;
+  height: 320px;
+  right: -100px;
+  top: 140px;
+  background: radial-gradient(circle, rgba(255, 102, 102, 0.7), transparent 70%);
+  animation-delay: -5s;
+}
+
+.hero__orb--3 {
+  width: 220px;
+  height: 220px;
+  right: 20%;
+  bottom: -80px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 70%);
+  animation-delay: -10s;
+}
+
+@keyframes hero-orb-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(18px, -22px) scale(1.08);
+  }
+}
+
+.hero__icons {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: transform 0.25s ease-out;
+  transform-style: preserve-3d;
+}
+
+.hero__icon {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.hero__icon--1 {
+  width: 120px;
+  height: 120px;
+  top: 12%;
+  right: 8%;
+  transform: rotate(-12deg);
+}
+
+.hero__icon--2 {
+  width: 90px;
+  height: 90px;
+  bottom: 18%;
+  right: 26%;
+  transform: rotate(8deg);
+}
+
+.hero__icon--3 {
+  width: 70px;
+  height: 70px;
+  top: 55%;
+  right: 4%;
+  transform: rotate(-6deg);
+}
+
+.hero__icon--4 {
+  width: 80px;
+  height: 80px;
+  top: 8%;
+  left: 4%;
+  transform: rotate(10deg);
+}
+
+.hero__icon--5 {
+  width: 85px;
+  height: 85px;
+  bottom: 10%;
+  left: 10%;
+  transform: rotate(14deg);
+}
+
+.hero__icon--6 {
+  width: 75px;
+  height: 75px;
+  top: 34%;
+  left: 15%;
+  transform: rotate(-8deg);
+}
+
+.hero__icon--7 {
+  width: 65px;
+  height: 65px;
+  bottom: 8%;
+  right: 40%;
+  transform: rotate(5deg);
+}
+
+.hero__icon--8 {
+  width: 60px;
+  height: 60px;
+  top: 40%;
+  right: 20%;
+  transform: rotate(12deg);
+}
+
+.hero__icon--9 {
+  width: 55px;
+  height: 55px;
+  bottom: 32%;
+  right: 6%;
+  transform: rotate(-10deg);
+}
+
+.hero__icon--10 {
+  width: 70px;
+  height: 70px;
+  top: 68%;
+  left: 32%;
+  transform: rotate(6deg);
+}
+
+@media (max-width: 1023px) {
+  /* Keep every icon on mobile instead of hiding most of them — scaled down
+     (as its own `scale` property, so each icon's individual `rotate()`
+     transform is untouched) so the gyroscope tilt has as much to move as
+     the desktop mouse-tilt does. */
+  .hero__icon {
+    scale: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__orb {
+    animation: none;
+  }
+}
+
+/* Touch devices can't hover-tilt, so give the icon layer a gentle ambient
+   3D drift instead — keeps the depth effect for phone visitors scanning in
+   from the flyer QR code. */
+@media (pointer: coarse) {
+  .hero__icons {
+    animation: hero-icons-drift 9s ease-in-out infinite;
+  }
+}
+
+@keyframes hero-icons-drift {
+  0%,
+  100% {
+    transform: rotateX(5deg) rotateY(-7deg);
+  }
+  50% {
+    transform: rotateX(-5deg) rotateY(7deg);
+  }
+}
+
+@media (pointer: coarse) and (prefers-reduced-motion: reduce) {
+  .hero__icons {
+    animation: none;
+  }
+}
+
+/* Once real deviceorientation data is flowing, hand control fully to JS —
+   an active CSS animation on the same property would otherwise win the
+   cascade and silently ignore the inline transform driving the tilt. */
+@media (pointer: coarse) {
+  .hero__icons.hero__icons--motion {
+    animation: none;
+  }
+}
+
+.hero__tilt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: -10px 0 22px;
+  cursor: pointer;
+}
+
+.hero__tilt-btn:active {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 48px;
+  text-align: left;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 22px;
+}
+
+.hero__title {
+  font-size: clamp(2rem, 7vw, 3.4rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  max-width: 760px;
+  color: #fff;
+}
+
+.hero__title-accent {
+  color: var(--secondary);
+}
+
+.hero__title-gold {
+  background: linear-gradient(90deg, #fff2c8 0%, #f6c445 45%, #d89a1c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 24px rgba(246, 196, 69, 0.55);
+}
+
+.hero__title-star {
+  width: 0.72em;
+  height: 0.72em;
+  vertical-align: 0.05em;
+  margin-right: 6px;
+  color: #f6c445;
+  fill: #f6c445;
+  filter: drop-shadow(0 0 8px rgba(246, 196, 69, 0.7));
+  animation: hero-star-twinkle 2.6s ease-in-out infinite;
+}
+
+@keyframes hero-star-twinkle {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.18) rotate(10deg);
+    opacity: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__title-star {
+    animation: none;
+  }
+}
+
+.hero__title-punch {
+  display: inline-block;
+  color: #fff;
+  text-shadow: 0 0 18px rgba(255, 212, 212, 0.7);
+  opacity: 0;
+  transform: scale(0.85);
+  animation: hero-punch-in 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s forwards;
+}
+
+@keyframes hero-punch-in {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__title-punch {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero__subtitle {
+  margin-top: 20px;
+  max-width: 560px;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.hero__actions .btn {
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 26px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.hero__ticker {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  padding: 14px 0;
+}
+
+.hero__ticker-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: hero-ticker 38s linear infinite;
+}
+
+.hero__ticker-item {
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+
+@keyframes hero-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__ticker-track {
+    animation: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .hero__actions {
+    width: auto;
+  }
+
+  .hero__actions .btn {
+    flex: 0 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-top: calc(var(--header-h) + 96px);
+  }
+
+  .hero__inner {
+    padding-bottom: 64px;
+  }
+}

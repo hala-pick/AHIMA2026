@@ -1,0 +1,172 @@
+.spotlight {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-soft) 0%, #fff 100%);
+}
+
+.spotlight > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.spotlight__pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.7;
+  background-image: radial-gradient(rgba(171, 5, 32, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 75%);
+  pointer-events: none;
+}
+
+.spotlight__blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.spotlight__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.5;
+}
+
+.spotlight__blob--1 {
+  width: 320px;
+  height: 320px;
+  right: -100px;
+  top: -80px;
+  background: radial-gradient(circle, var(--secondary), transparent 70%);
+}
+
+.spotlight__blob--2 {
+  width: 280px;
+  height: 280px;
+  left: -90px;
+  bottom: -60px;
+  background: radial-gradient(circle, rgba(171, 5, 32, 0.12), transparent 70%);
+}
+
+.spotlight__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 720px) {
+  .spotlight__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.spotlight__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 26px 22px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.spotlight__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-hover);
+}
+
+.spotlight__card:hover .spotlight__icon {
+  transform: rotate(-6deg) scale(1.08);
+}
+
+.spotlight__badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--primary);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.spotlight__icon {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--secondary);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s ease;
+}
+
+.spotlight__title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.spotlight__hook {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.spotlight__short {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.spotlight__more {
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Touch devices can't hover-tilt these cards, so give them a gentle ambient
+   3D drift instead — keeps the depth effect for phone visitors. */
+@media (pointer: coarse) {
+  .spotlight__card {
+    animation: spotlight-card-drift 6.5s ease-in-out infinite;
+  }
+
+  .spotlight__card:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+
+  .spotlight__card:nth-child(3) {
+    animation-delay: 1s;
+  }
+}
+
+@keyframes spotlight-card-drift {
+  0%,
+  100% {
+    transform: perspective(700px) rotateX(2.5deg) rotateY(-3.5deg) translateY(0);
+  }
+  50% {
+    transform: perspective(700px) rotateX(-2.5deg) rotateY(3.5deg) translateY(-5px);
+  }
+}
+
+@media (pointer: coarse) and (prefers-reduced-motion: reduce) {
+  .spotlight__card {
+    animation: none;
+  }
+}
