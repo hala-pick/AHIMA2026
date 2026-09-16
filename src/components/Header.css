@@ -4,12 +4,20 @@
   left: 0;
   right: 0;
   z-index: 100;
+}
+
+/* The blurred bar lives in its own full-width element, separate from
+   `.site-header` itself. `backdrop-filter` creates a new containing block
+   for `position: fixed` descendants — if it stayed on `.site-header`, the
+   fixed-position `.site-header__mobile` panel below would size itself
+   against this ~64px bar instead of the viewport, collapsing to a sliver. */
+.site-header__bar {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
   transition: background 0.25s ease, box-shadow 0.25s ease;
 }
 
-.site-header.is-scrolled {
+.site-header.is-scrolled .site-header__bar {
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 2px 18px rgba(171, 5, 32, 0.1);
 }

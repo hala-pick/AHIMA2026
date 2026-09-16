@@ -29,32 +29,34 @@ export default function Header() {
 
   return (
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
-      <div className="container site-header__inner">
-        <a href="#top" className="site-header__brand" onClick={handleNavClick}>
-          <img src="/logo-full.svg" alt="ReviewMate" />
-        </a>
+      <div className="site-header__bar">
+        <div className="container site-header__inner">
+          <a href="#top" className="site-header__brand" onClick={handleNavClick}>
+            <img src="/logo-full.svg" alt="ReviewMate" />
+          </a>
 
-        <nav className="site-header__nav site-header__nav--desktop" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href}>
-              {link.label}
-            </a>
-          ))}
-        </nav>
+          <nav className="site-header__nav site-header__nav--desktop" aria-label="Primary">
+            {NAV_LINKS.map((link) => (
+              <a key={link.href} href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
 
-        <a href="#demo" className="btn btn-primary site-header__cta">
-          Schedule a Demo
-        </a>
+          <a href="#demo" className="btn btn-primary site-header__cta">
+            Schedule a Demo
+          </a>
 
-        <button
-          type="button"
-          className="site-header__toggle"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <button
+            type="button"
+            className="site-header__toggle"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       <div className={`site-header__mobile ${open ? "is-open" : ""}`}>
